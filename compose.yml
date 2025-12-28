@@ -1,0 +1,19 @@
+services:
+  accilyze-backend:
+    build:
+      context: ./web_app/backend
+      dockerfile: Dockerfile
+    environment:
+      - FRONTEND_URL=${FRONTEND_URL}
+    ports:
+      - "8000:8000"
+  accilyze-frontend:
+    build:
+      context: ./web_app/frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    ports:
+      - ${FRONTEND_PORT}:3000
+    environment:
+      - NODE_ENV=${FRONTEND_ENV}
